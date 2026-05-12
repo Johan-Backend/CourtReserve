@@ -1,6 +1,6 @@
 package com.johan.courtreserve.demo.auth.domain.exception;
 
-public class RefreshTokenRevokedException extends RuntimeException{
+public class RefreshTokenRevokedException extends AuthDomainException{
     public RefreshTokenRevokedException() {
         super("Refresh token has revoked");
     }

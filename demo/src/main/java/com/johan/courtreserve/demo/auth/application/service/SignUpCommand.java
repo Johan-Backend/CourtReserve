@@ -3,17 +3,17 @@ package com.johan.courtreserve.demo.auth.application.service;
 import java.util.Objects;
 
 public record SignUpCommand(
-    String name, 
+    String firstName, 
     String lastName, 
     String email, 
-    String phone, 
+    String phoneNumber, 
     String password
 ) {
     public SignUpCommand {
-        Objects.requireNonNull(name, "the name is required");
-        Objects.requireNonNull(lastName, "lastName es obligatorio");
-        Objects.requireNonNull(email, "email es obligatorio");
+        Objects.requireNonNull(firstName, "The name is required");
+        Objects.requireNonNull(lastName, "The lastName is required");
+        Objects.requireNonNull(email, "The email is required");
         // phone doesn`t valid: it is optional
-        Objects.requireNonNull(password, "password es obligatorio");
+        Objects.requireNonNull(password, "The password is required");
     }
 }

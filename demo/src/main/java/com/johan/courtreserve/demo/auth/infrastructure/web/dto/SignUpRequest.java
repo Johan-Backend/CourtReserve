@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpRequest {
-    @NotBlank(message = "The name is required.")
+    @NotBlank(message = "The first name is required.")
     @Pattern(regexp = "^[A-Za-zÁÉÍÓÚáéíóúÑñ]{3,}$", message = "The name cannot contain numbers or special characters.")
-    private String name;
+    private String firstName;
 
     @NotBlank(message = "The last name is required.")
     @Pattern(regexp = "^[A-Za-zÁÉÍÓÚáéíóúÑñ]{3,}$", message = "The last name cannot contain numbers or special characters.")
@@ -26,13 +26,13 @@ public class SignUpRequest {
     private String email;
 
     @Pattern(regexp = "^(\\+34)?[6-9][0-9]{8}$", message = "the phone number cannot contain letters and 9 digits.")
-    private String phone;
+    private String phoneNumber;
 
     @NotBlank(message = "The password is required.")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$", message = "The password must contain at least one uppercase letter, one number, and one special character.")
     private String password;
 
     public SignUpCommand toCommand(){
-        return new SignUpCommand(name, lastName, email, phone, password);
+        return new SignUpCommand(firstName, lastName, email, phoneNumber, password);
     }
 }

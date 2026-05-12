@@ -1,6 +1,6 @@
 package com.johan.courtreserve.demo.auth.domain.exception;
 
-public class RefreshTokenExpiredException extends DomainException{
+public class RefreshTokenExpiredException extends AuthDomainException{
     public RefreshTokenExpiredException() {
         super("Refresh token has expired");
     }
