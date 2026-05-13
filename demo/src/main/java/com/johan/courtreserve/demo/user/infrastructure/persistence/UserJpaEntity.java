@@ -2,8 +2,12 @@ package com.johan.courtreserve.demo.user.infrastructure.persistence;
 
 import java.util.UUID;
 
+import com.johan.courtreserve.demo.user.domain.model.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -48,4 +52,8 @@ public class UserJpaEntity {
 
     @Column(name = "hashed_password", nullable = false)
     private String hashedPassword;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

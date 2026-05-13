@@ -11,8 +11,9 @@ public class User {
     private String email;
     private String phone;
     private String hashedPassword;
+    private Role role;
 
-    private User(Long id, UUID publicId, String firstName, String lastName, String email, String phone, String hashedPassword) {
+    private User(Long id, UUID publicId, String firstName, String lastName, String email, String phone, String hashedPassword, Role role) {
         this.id = id;
         this.publicId = publicId;
         this.firstName = firstName;
@@ -20,6 +21,7 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.hashedPassword = hashedPassword;
+        this.role = role;
     }
 
     public static User create(String firstName, String lastName, String email, String phone, String hashedPassword) {
@@ -28,13 +30,15 @@ public class User {
         Objects.requireNonNull(email);
         Objects.requireNonNull(hashedPassword);
         
-        return new User(null, UUID.randomUUID(), firstName, lastName, email, phone, hashedPassword);
+        return new User(null, UUID.randomUUID(), firstName, lastName, email, phone, hashedPassword, Role.USER);
     }
 
-    public static User reconstitute(Long id, UUID publicId, String firstName, String lastName, String email, String phoneNumber, String hashedPassword) {
-        Objects.requireNonNull(id, "id es obligatorio al reconstituir");
-        Objects.requireNonNull(publicId, "publicId es obligatorio al reconstituir");
-        return new User(id, publicId, firstName, lastName, email, phoneNumber, hashedPassword);
+    public static User reconstitute(Long id, UUID publicId, String firstName, String lastName, String email, String phoneNumber, String hashedPassword, Role role) {
+        Objects.requireNonNull(id, "id is required to reconstitute");
+        Objects.requireNonNull(publicId, "publicId is required to reconstitute");
+        Objects.requireNonNull(role, "role is required to reconstitute");
+         
+        return new User(id, publicId, firstName, lastName, email, phoneNumber, hashedPassword, role);
     }
 
     public void changeEmail(String newEmail) {
@@ -52,6 +56,10 @@ public class User {
         this.phone = phone;
     }
 
+    public void promoteToAdmin(){
+        this.role = Role.ADMIN;
+    }
+
     public Long getId() { return id; }
     public UUID getPublicId() { return publicId;}
     public String getFirstName() { return firstName; }
@@ -59,6 +67,7 @@ public class User {
     public String getEmail() { return email; }
     public String getPhoneNumber() { return phone; }
     public String getHashedPassword() { return hashedPassword; }
+    public Role getRole() { return role; }
 
     @Override
     public boolean equals(Object o) {

@@ -14,7 +14,8 @@ public class UserMapper {
             user.getLastName(),
             user.getEmail(),
             user.getPhoneNumber(),
-            user.getHashedPassword()
+            user.getHashedPassword(),
+            user.getRole()
         );
     }
     
@@ -26,7 +27,8 @@ public class UserMapper {
             entity.getLastName(),
             entity.getEmail(),
             entity.getPhoneNumber(),
-            entity.getHashedPassword()
+            entity.getHashedPassword(),
+            entity.getRole()
         );
     }
 }

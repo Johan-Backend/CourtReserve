@@ -3,6 +3,7 @@ package com.johan.courtreserve.demo.auth.application.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.johan.courtreserve.demo.auth.application.port.TokenGenerator;
 import com.johan.courtreserve.demo.auth.domain.exception.InvalidCredentials;
 import com.johan.courtreserve.demo.user.application.port.UserRepository;
 import com.johan.courtreserve.demo.user.domain.exception.EmailAlreadyExistsException;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passEncoder;
+    private final TokenGenerator tokenGenerator;
 
     public void signUp(SignUpCommand command){
         if (userRepository.existsByEmail(command.email())) throw new EmailAlreadyExistsException();
@@ -26,6 +28,6 @@ public class AuthService {
         User userStorage = userRepository.findByEmail(command.email()).orElseThrow(()-> new InvalidCredentials());
         if (!passEncoder.matches(userStorage.getHashedPassword(), command.password())) throw new InvalidCredentials();
 
-        
+        String accessToken = tokenGenerator.generateAccessToken(userStorage);
     }
 }
