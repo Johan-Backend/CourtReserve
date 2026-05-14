@@ -53,7 +53,7 @@ public class UserJpaEntity {
     @Column(name = "hashed_password", nullable = false)
     private String hashedPassword;
 
-    @Column(name = "role", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 }

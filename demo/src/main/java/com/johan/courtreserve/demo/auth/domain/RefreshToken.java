@@ -8,25 +8,23 @@ import com.johan.courtreserve.demo.auth.domain.exception.RefreshTokenExpiredExce
 import com.johan.courtreserve.demo.auth.domain.exception.RefreshTokenRevokedException;
 
 public class RefreshToken {
-    private final RefreshTokenId id;
-    private final UUID userId;                 
+    private final Long id;
+    private final UUID familyId;
+    private final UUID userPublicId;                 
     private final Instant issuedAt;
     private final Instant expiresAt;
     private boolean revoked;
 
-    public RefreshToken(RefreshTokenId id, UUID userId, Instant issuedAt, Instant expiresAt, boolean revoked) {
-        if (id == null) throw new IllegalArgumentException("id required");
-        if (userId == null) throw new IllegalArgumentException("userId required");
-        if (issuedAt == null) throw new IllegalArgumentException("issuedAt required");
-        if (expiresAt == null) throw new IllegalArgumentException("expiresAt required");
-        if (!expiresAt.isAfter(issuedAt)) {
-            throw new IllegalArgumentException("expiresAt must be after issuedAt");
-        }
+    private RefreshToken(Long id, UUID familyId, UUID userPublicId, Instant issuedAt, Instant expiresAt) {
         this.id = id;
-        this.userId = userId;
+        this.familyId = familyId;
+        this.userPublicId = userPublicId;
         this.issuedAt = issuedAt;
         this.expiresAt = expiresAt;
-        this.revoked = revoked;
+    }
+
+    public static RefreshToken create(){
+        return new RefreshToken(null, UUID.randomUUID(), null, null, null);
     }
 
     public void revoke() {
@@ -40,4 +38,6 @@ public class RefreshToken {
         if (revoked) throw new RefreshTokenRevokedException();
         if (now.isAfter(expiresAt)) throw new RefreshTokenExpiredException();
     }
+
+
 }
