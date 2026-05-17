@@ -1,9 +1,9 @@
-package com.johan.courtreserve.demo.auth.domain.port.out;
+package com.johan.courtreserve.demo.auth.application.port;
 
 import java.util.Optional;
 import java.util.UUID;
 
-import com.johan.courtreserve.demo.auth.domain.RefreshToken;
+import com.johan.courtreserve.demo.auth.domain.model.RefreshToken;
 
 public interface RefreshTokenRepository {
     void save(RefreshToken token);
